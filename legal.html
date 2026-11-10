@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentions légales — Tech Home</title>
+  <meta name="description" content="Mentions légales, politique de confidentialité et informations sur les liens partenaires de Tech Home.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row" style="grid-template-columns:auto 1fr">
+      <a class="logo" href="index.html"><span class="logo-mark" id="logo-mark"></span><span class="js-name">Tech Home</span></a>
+      <nav class="nav" aria-label="Navigation" style="justify-content:flex-end"><a href="index.html">Retour au catalogue</a></nav>
+    </div>
+  </header>
+  <main class="wrap page">
+    <article>
+      <h1>À propos et mentions légales</h1>
+      <p><span class="js-name">Tech Home</span> est un site de sélection de produits tech pour la maison. Nous présentons des produits, donnons notre avis et renvoyons vers des boutiques en ligne pour l’achat. Nous ne vendons et ne livrons rien nous-mêmes : la commande, le paiement, la livraison, les retours et la garantie sont gérés par la boutique choisie.</p>
+
+      <h2>Éditeur du site</h2>
+      <p>Responsable de la publication : <span id="owner">à compléter dans l’espace administrateur</span>.</p>
+      <p id="contact-line">Contact : <span id="contact">à compléter dans l’espace administrateur</span>.</p>
+      <p>Hébergement : GitHub Pages, service de GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+
+      <h2 id="affiliation">Liens partenaires</h2>
+      <p class="disclosure" id="disclosure"></p>
+      <p>Les boutons « Voir sur Amazon.fr », « Voir sur Amazon.com » ou « Voir sur Jumia » sont des liens partenaires. Si vous achetez après avoir cliqué, la boutique peut nous verser une commission. Le prix que vous payez reste le même. Cette commission finance le site et n’influence pas les points faibles que nous signalons.</p>
+      <p>Les prix, la disponibilité et les délais de livraison sont ceux de la boutique au moment de votre visite. Ils peuvent changer sans préavis : vérifiez-les sur la page de la boutique avant de commander.</p>
+
+      <h2 id="confidentialite">Confidentialité et cookies</h2>
+      <p>Ce site ne demande pas de compte et ne collecte ni nom, ni adresse e-mail, ni données de paiement. Il ne dépose pas de cookie publicitaire.</p>
+      <p>Lorsque vous cliquez sur un lien partenaire, vous quittez ce site. La boutique (par exemple Amazon) peut alors déposer ses propres cookies pour savoir que vous venez de chez nous et calculer une éventuelle commission. Ces cookies relèvent de la politique de confidentialité de la boutique.</p>
+      <p>Notre hébergeur peut enregistrer des données techniques de connexion (adresse IP, navigateur) pour la sécurité et le bon fonctionnement du service.</p>
+      <p>Pour toute question ou demande liée à vos données, écrivez-nous à l’adresse de contact ci-dessus.</p>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="wrap"><p>© <span id="year"></span> <span class="js-name">Tech Home</span></p></div></footer>
+  <script src="common.js"></script>
+  <script>
+    (async function () {
+      const T = window.TH;
+      document.getElementById("logo-mark").innerHTML = T.ICONS.logo;
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document.getElementById("disclosure").textContent = T.DISCLOSURE;
+      try {
+        const s = (await T.loadData()).data.settings;
+        document.querySelectorAll(".js-name").forEach(el => { el.textContent = s.siteName || "Tech Home"; });
+        if (s.ownerName) document.getElementById("owner").textContent = s.ownerName;
+        const contacts = [s.contactEmail, s.contactWhatsapp ? "WhatsApp " + s.contactWhatsapp : ""].filter(Boolean);
+        if (contacts.length) document.getElementById("contact").textContent = contacts.join(" · ");
+      } catch (e) { /* les valeurs par défaut restent affichées */ }
+    })();
+  </script>
+</body>
+</html>

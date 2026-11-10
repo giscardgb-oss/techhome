@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tech Home</title>
+  <meta name="description" content="Tech Home sélectionne et explique les meilleurs produits tech pour la maison : audio, maison connectée, informatique, accessoires.">
+  <meta property="og:title" content="Tech Home">
+  <meta property="og:description" content="La tech utile pour la maison, choisie et expliquée.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="local-banner" class="local-banner" hidden>
+    <div class="wrap">
+      <span>Vous voyez l'aperçu de vos modifications dans ce navigateur. Elles ne sont pas encore en ligne.</span>
+      <button type="button" class="link-btn" id="drop-local">Afficher la version en ligne</button>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="logo" href="index.html"><span class="logo-mark" id="logo-mark"></span><span id="site-name">Tech Home</span></a>
+      <form class="search" role="search" id="search-form">
+        <label for="q" class="sr-only">Rechercher un produit</label>
+        <span id="search-icon"></span>
+        <input id="q" type="search" placeholder="Rechercher un casque, une caméra, un chargeur…" autocomplete="off">
+      </form>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#selection" class="hide-sm">Sélection</a>
+        <a href="#catalogue">Catalogue</a>
+        <a href="legal.html" class="hide-sm">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow" id="hero-eyebrow">Sélection tech · mise à jour régulièrement</p>
+        <h1 id="hero-title">La bonne tech pour chez vous, sans perdre des heures à comparer.</h1>
+        <p id="hero-text" style="margin-top:14px">Casques, maison connectée, informatique, accessoires : nous sélectionnons des produits, nous expliquons pour qui ils sont faits, puis nous vous envoyons vers la boutique qui livre chez vous.</p>
+      </div>
+      <ul class="clean trust" id="trust">
+        <li><span data-icon="check"></span><span>Des fiches claires : points forts, points faibles et caractéristiques utiles.</span></li>
+        <li><span data-icon="check"></span><span>Achat sur la boutique officielle (Amazon et autres), avec ses garanties et sa livraison.</span></li>
+        <li><span data-icon="check"></span><span>Plusieurs boutiques par produit selon votre pays : Europe, Afrique, international.</span></li>
+      </ul>
+    </section>
+
+    <section class="wrap section" id="selection" aria-labelledby="sel-title">
+      <div class="section-head">
+        <h2 id="sel-title">Nos coups de cœur</h2>
+        <span class="count" id="sel-count"></span>
+      </div>
+      <div class="grid featured-grid" id="featured"></div>
+    </section>
+
+    <section class="wrap section" id="catalogue" aria-labelledby="cat-title">
+      <div class="section-head">
+        <h2 id="cat-title">Tout le catalogue</h2>
+        <span class="count" id="cat-count" aria-live="polite"></span>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="chips" role="group" aria-label="Filtrer par catégorie"></div>
+        <label class="sr-only" for="sort">Trier</label>
+        <select class="select" id="sort">
+          <option value="recent">Plus récents</option>
+          <option value="score">Mieux notés</option>
+          <option value="name">Nom (A → Z)</option>
+        </select>
+      </div>
+      <div class="grid" id="products"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div style="display:grid;gap:12px">
+        <p class="disclosure" id="disclosure"></p>
+        <p>Les prix, la disponibilité et la livraison sont fixés par chaque boutique et peuvent changer. Vérifiez-les sur la boutique avant d'acheter.</p>
+        <p>© <span id="year"></span> <span id="footer-name">Tech Home</span></p>
+      </div>
+      <div class="footer-links">
+        <a href="legal.html">Mentions légales</a>
+        <a href="legal.html#confidentialite">Confidentialité</a>
+        <a href="legal.html#affiliation">Liens partenaires</a>
+        <a href="admin.html">Administration</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" id="sheet"></div>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

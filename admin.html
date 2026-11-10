@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administration — Tech Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin { padding: 28px 0 60px; display: grid; gap: 22px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+    .panel h2 { font-size: 1.2rem; margin-bottom: 4px; }
+    .panel .lead { color: var(--muted); font-size: .92rem; margin-bottom: 14px; max-width: 70ch; }
+    .topbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+    .status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .92rem; padding: 6px 12px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #c08a1e; }
+    .dot.on { background: var(--ok); }
+    .dirty { font-family: var(--mono); font-size: .8rem; color: var(--accent); }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .fields .full { grid-column: 1 / -1; }
+    .field { display: grid; gap: 6px; }
+    .field label { font-weight: 600; font-size: .9rem; }
+    .field .hint { font-size: .8rem; color: var(--muted); }
+    .field .warn { font-size: .82rem; color: var(--bad); font-weight: 600; }
+    .input, .textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 10px 12px; min-height: 44px; }
+    .textarea { min-height: 96px; resize: vertical; }
+    .input:focus, .textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .check { display: flex; gap: 10px; align-items: center; font-weight: 600; }
+    .check input { width: 20px; height: 20px; accent-color: var(--accent); }
+    .plist { display: grid; gap: 10px; }
+    .pitem { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+    .thumb { width: 64px; height: 64px; border-radius: 10px; background: #fff; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); }
+    .thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .thumb .illus { width: 60%; color: #2a2f37; }
+    .pitem h3 { font-size: 1rem; }
+    .pmeta { font-size: .84rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .btn-sm { min-height: 38px; padding: 0 12px; font-size: .88rem; }
+    .btn-danger { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, var(--line)); }
+    .btn-danger.armed { background: var(--bad); color: #fff; }
+    .links-editor { display: grid; gap: 10px; }
+    .link-row { display: grid; grid-template-columns: 160px 140px 1fr auto; gap: 8px; align-items: start; padding: 10px; border: 1px dashed var(--line); border-radius: 12px; }
+    .link-row .warn { grid-column: 1 / -1; }
+    .editor-sheet { padding: 24px; display: grid; gap: 18px; }
+    .editor-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .preview-img { width: 120px; height: 120px; border-radius: 12px; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; overflow: hidden; }
+    .preview-img img { width: 100%; height: 100%; object-fit: contain; }
+    .preview-img .illus { width: 55%; color: #2a2f37; }
+    .img-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .toast { position: fixed; left: 50%; bottom: 20px; translate: -50% 0; z-index: 80; max-width: min(560px, 92vw); padding: 12px 18px; border-radius: 12px; background: var(--ink); color: var(--paper); font-weight: 600; box-shadow: var(--shadow); display: none; }
+    .toast.show { display: block; }
+    .toast.err { background: var(--bad); color: #fff; }
+    details.panel summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 1.15rem; }
+    details.panel[open] summary { margin-bottom: 12px; }
+    .steps { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: .92rem; }
+    @media (max-width: 720px) {
+      .fields { grid-template-columns: 1fr; }
+      .link-row { grid-template-columns: 1fr 1fr; }
+      .link-row .url { grid-column: 1 / -1; }
+      .pitem { grid-template-columns: 52px 1fr; }
+      .pitem .row-actions { grid-column: 1 / -1; }
+      .thumb { width: 52px; height: 52px; }
+      .editor-sheet { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row" style="grid-template-columns:auto 1fr">
+      <a class="logo" href="index.html"><span class="logo-mark" id="logo-mark"></span><span>Administration</span></a>
+      <nav class="nav" aria-label="Navigation" style="justify-content:flex-end"><a href="index.html">Voir le site</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap admin">
+    <section class="panel">
+      <div class="topbar">
+        <div style="display:grid;gap:6px">
+          <span class="status"><span class="dot" id="mode-dot"></span><span id="mode-label">Mode aperçu</span></span>
+          <span class="dirty" id="dirty" hidden>Modifications non enregistrées</span>
+        </div>
+        <div class="row-actions">
+          <button type="button" class="btn btn-ghost" id="add">+ Ajouter un produit</button>
+          <button type="button" class="btn btn-buy" id="save">Enregistrer</button>
+        </div>
+      </div>
+      <p class="lead" id="mode-help" style="margin:14px 0 0"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="list-title">
+      <div class="section-head" style="margin-bottom:12px">
+        <h2 id="list-title">Produits</h2>
+        <div class="row-actions">
+          <span class="count" id="list-count" style="font-family:var(--mono);font-size:.85rem;color:var(--muted)"></span>
+          <button type="button" class="btn btn-ghost btn-sm btn-danger" id="drop-demo" hidden>Supprimer les exemples</button>
+        </div>
+      </div>
+      <div class="plist" id="plist"></div>
+    </section>
+
+    <details class="panel" id="settings-panel">
+      <summary>Réglages du site</summary>
+      <div class="fields">
+        <div class="field"><label for="s-siteName">Nom du site</label><input class="input" id="s-siteName" data-setting="siteName"></div>
+        <div class="field"><label for="s-ownerName">Responsable du site (mentions légales)</label><input class="input" id="s-ownerName" data-setting="ownerName" placeholder="Votre nom ou celui de votre entreprise"></div>
+        <div class="field"><label for="s-contactEmail">E-mail de contact</label><input class="input" id="s-contactEmail" data-setting="contactEmail" type="email" placeholder="contact@exemple.com"></div>
+        <div class="field"><label for="s-contactWhatsapp">WhatsApp (facultatif)</label><input class="input" id="s-contactWhatsapp" data-setting="contactWhatsapp" placeholder="+229 …"></div>
+        <div class="field full"><label for="s-heroTitle">Grand titre de l’accueil</label><input class="input" id="s-heroTitle" data-setting="heroTitle"></div>
+        <div class="field full"><label for="s-heroText">Texte d’accueil</label><textarea class="textarea" id="s-heroText" data-setting="heroText"></textarea></div>
+      </div>
+    </details>
+
+    <details class="panel" id="publish-panel">
+      <summary>Mise en ligne (connexion GitHub)</summary>
+      <p class="lead">Le site est hébergé gratuitement sur GitHub Pages. Pour que le bouton « Publier » mette vos produits en ligne, l’administration a besoin d’une clé d’accès GitHub. Cette clé reste dans ce navigateur, ne la partagez avec personne.</p>
+      <ol class="steps" style="margin-bottom:16px">
+        <li>Sur GitHub, ouvrez Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.</li>
+        <li>Choisissez uniquement le dépôt du site, puis donnez l’autorisation « Contents : Read and write ».</li>
+        <li>Copiez la clé et collez-la ci-dessous avec le nom de votre compte et du dépôt.</li>
+      </ol>
+      <form class="fields" id="gh-form">
+        <div class="field"><label for="gh-owner">Compte GitHub</label><input class="input" id="gh-owner" autocomplete="off" placeholder="mon-compte"></div>
+        <div class="field"><label for="gh-repo">Dépôt du site</label><input class="input" id="gh-repo" autocomplete="off" placeholder="techhome"></div>
+        <div class="field"><label for="gh-branch">Branche</label><input class="input" id="gh-branch" autocomplete="off" value="main"></div>
+        <div class="field"><label for="gh-token">Clé d’accès (token)</label><input class="input" id="gh-token" type="password" autocomplete="off" placeholder="github_pat_…"></div>
+        <div class="full row-actions">
+          <button type="submit" class="btn btn-dark">Se connecter</button>
+          <button type="button" class="btn btn-ghost" id="gh-logout" hidden>Se déconnecter</button>
+        </div>
+      </form>
+    </details>
+
+    <details class="panel">
+      <summary>Sauvegarde</summary>
+      <p class="lead">Copiez tout le catalogue pour le garder en lieu sûr, ou collez une sauvegarde pour la restaurer.</p>
+      <div class="field"><label for="backup">Catalogue au format JSON</label><textarea class="textarea" id="backup" style="min-height:140px;font-family:var(--mono);font-size:.8rem"></textarea></div>
+      <div class="row-actions" style="margin-top:10px">
+        <button type="button" class="btn btn-ghost btn-sm" id="backup-copy">Copier la sauvegarde</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="backup-restore">Restaurer ce texte</button>
+      </div>
+    </details>
+  </main>
+
+  <div class="overlay" id="editor" aria-hidden="true">
+    <form class="sheet editor-sheet" id="editor-form" role="dialog" aria-modal="true" aria-labelledby="editor-title" novalidate>
+      <div class="editor-head">
+        <h2 id="editor-title" style="font-size:1.4rem">Nouveau produit</h2>
+        <button type="button" class="close" style="position:static" id="editor-close" aria-label="Fermer sans enregistrer"></button>
+      </div>
+
+      <div class="fields">
+        <div class="field full"><label for="f-name">Nom du produit *</label><input class="input" id="f-name" required placeholder="Ex. : Casque Bluetooth à réduction de bruit"><span class="warn" id="name-err" hidden>Indiquez le nom du produit.</span></div>
+        <div class="field"><label for="f-brand">Marque</label><input class="input" id="f-brand"></div>
+        <div class="field"><label for="f-category">Catégorie</label><input class="input" id="f-category" list="cat-list" placeholder="Audio, Maison connectée…"><datalist id="cat-list"></datalist></div>
+        <div class="field full"><label for="f-summary">Phrase d’accroche</label><input class="input" id="f-summary" maxlength="180" placeholder="Pour qui est fait ce produit, en une phrase."></div>
+        <div class="field full"><label for="f-description">Votre avis (description)</label><textarea class="textarea" id="f-description" style="min-height:140px" placeholder="Écrivez avec vos mots : à qui il s’adresse, ce qu’il fait bien, ce qu’il fait moins bien. Laissez une ligne vide entre deux paragraphes."></textarea><span class="hint">Amazon demande du contenu original : n’y copiez pas la description de la boutique.</span></div>
+      </div>
+
+      <div class="field">
+        <span style="font-weight:600;font-size:.9rem">Photo</span>
+        <div class="img-row">
+          <div class="preview-img" id="img-preview"></div>
+          <div style="display:grid;gap:8px;flex:1;min-width:220px">
+            <label class="btn btn-ghost btn-sm" for="f-file" style="width:max-content">Choisir une photo…</label>
+            <input type="file" id="f-file" accept="image/png,image/jpeg,image/webp" class="sr-only">
+            <label for="f-image" class="sr-only">Adresse de l’image</label>
+            <input class="input" id="f-image" placeholder="ou collez l’adresse d’une image (https://…)">
+            <span class="hint">Utilisez votre propre photo ou l’image fournie par SiteStripe d’Amazon. Ne copiez pas les photos d’autres sites.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span style="font-weight:600;font-size:.9rem">Liens d’achat (vos liens partenaires)</span>
+        <span class="hint">Ajoutez un lien par boutique : par exemple Amazon.fr pour l’Europe, Amazon.com pour l’international, Jumia pour l’Afrique.</span>
+        <div class="links-editor" id="links"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="add-link" style="width:max-content">+ Ajouter une boutique</button>
+      </div>
+
+      <div class="fields">
+        <div class="field"><label for="f-specs">Caractéristiques (une par ligne)</label><textarea class="textarea" id="f-specs" placeholder="Bluetooth 5.3&#10;Autonomie 30 h"></textarea></div>
+        <div class="field"><label for="f-pros">Points forts (un par ligne)</label><textarea class="textarea" id="f-pros"></textarea></div>
+        <div class="field"><label for="f-cons">Points faibles (un par ligne)</label><textarea class="textarea" id="f-cons"></textarea></div>
+        <div class="field"><label for="f-badge">Étiquette (facultatif)</label><input class="input" id="f-badge" maxlength="24" placeholder="Coup de cœur, Petit prix…"></div>
+        <div class="field"><label for="f-score">Note Tech Home sur 10 (facultatif)</label><input class="input" id="f-score" type="number" min="0" max="10" step="0.1" inputmode="decimal"></div>
+        <div class="field"><label for="f-price">Prix indicatif (facultatif)</label><input class="input" id="f-price" placeholder="Ex. : 12 500 FCFA chez Jumia"><span class="hint">Laissez vide pour les produits Amazon : Amazon n’autorise pas l’affichage d’un prix qui n’est pas mis à jour automatiquement.</span></div>
+        <div class="field full"><label class="check"><input type="checkbox" id="f-featured"> Mettre dans « Nos coups de cœur » (3 maximum affichés)</label></div>
+      </div>
+
+      <div class="row-actions" style="justify-content:flex-end">
+        <button type="button" class="btn btn-ghost" id="editor-cancel">Annuler</button>
+        <button type="submit" class="btn btn-buy">Valider le produit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="common.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

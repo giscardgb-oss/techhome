@@ -1,0 +1,142 @@
+{
+  "settings": {
+    "siteName": "Tech Home",
+    "tagline": "La tech utile pour la maison, choisie et expliquée.",
+    "heroTitle": "La bonne tech pour chez vous, sans perdre des heures à comparer.",
+    "heroText": "Casques, maison connectée, informatique, accessoires : nous sélectionnons des produits, nous expliquons pour qui ils sont faits, puis nous vous envoyons vers la boutique qui livre chez vous.",
+    "ownerName": "",
+    "contactEmail": "",
+    "contactWhatsapp": ""
+  },
+  "products": [
+    {
+      "id": "ecouteurs-reduction-bruit",
+      "demo": true,
+      "name": "Écouteurs sans fil à réduction de bruit",
+      "brand": "Exemple",
+      "category": "Audio",
+      "image": "",
+      "badge": "Coup de cœur",
+      "featured": true,
+      "score": 8.6,
+      "summary": "Pour le métro, l'avion ou le télétravail : le bruit ambiant disparaît et l'autonomie tient toute la journée.",
+      "description": "Ceci est un produit d'exemple pour vous montrer à quoi ressemble une fiche. Remplacez-le depuis l'espace administrateur par un vrai produit et votre lien partenaire.\n\nDécrivez ici, avec vos mots, à qui le produit s'adresse, ce qu'il fait bien et ce qu'il fait moins bien. Une fiche utile et honnête donne envie de cliquer.",
+      "specs": ["Bluetooth 5.3", "Autonomie 8 h + 24 h boîtier", "Charge USB-C", "IPX4"],
+      "pros": ["Réduction de bruit efficace", "Boîtier compact"],
+      "cons": ["Pas de charge sans fil"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.fr", "region": "Europe", "url": "https://www.amazon.fr/" },
+        { "store": "Amazon.com", "region": "International", "url": "https://www.amazon.com/" }
+      ],
+      "updatedAt": "2026-11-10"
+    },
+    {
+      "id": "prise-connectee-wifi",
+      "demo": true,
+      "name": "Prise connectée Wi-Fi avec mesure de consommation",
+      "brand": "Exemple",
+      "category": "Maison connectée",
+      "image": "",
+      "badge": "Petit prix",
+      "featured": true,
+      "score": 8.2,
+      "summary": "Allumez la lampe ou le chauffe-eau depuis votre téléphone et voyez combien chaque appareil consomme.",
+      "description": "Produit d'exemple. Une prise connectée est souvent le premier pas vers une maison connectée : pas d'installation, on la branche et on la pilote depuis une application.",
+      "specs": ["Wi-Fi 2,4 GHz", "Max 16 A / 3680 W", "Programmation horaire", "Compatible assistants vocaux"],
+      "pros": ["Installation en 2 minutes", "Suivi de la consommation"],
+      "cons": ["Wi-Fi 5 GHz non pris en charge"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.fr", "region": "Europe", "url": "https://www.amazon.fr/" }
+      ],
+      "updatedAt": "2026-11-09"
+    },
+    {
+      "id": "chargeur-usb-c-65w",
+      "demo": true,
+      "name": "Chargeur USB-C 65 W à 3 ports",
+      "brand": "Exemple",
+      "category": "Accessoires",
+      "image": "",
+      "badge": "",
+      "featured": true,
+      "score": 9.0,
+      "summary": "Un seul chargeur pour l'ordinateur portable, le téléphone et les écouteurs, en même temps.",
+      "description": "Produit d'exemple. Les chargeurs GaN sont plus petits que les chargeurs classiques à puissance égale, pratiques en voyage.",
+      "specs": ["65 W max", "2 × USB-C + 1 × USB-A", "Technologie GaN", "Power Delivery"],
+      "pros": ["Remplace trois chargeurs", "Très compact"],
+      "cons": ["Câble non fourni"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.fr", "region": "Europe", "url": "https://www.amazon.fr/" },
+        { "store": "Jumia", "region": "Afrique", "url": "https://www.jumia.com/" }
+      ],
+      "updatedAt": "2026-11-08"
+    },
+    {
+      "id": "clavier-souris-sans-fil",
+      "demo": true,
+      "name": "Ensemble clavier et souris sans fil silencieux",
+      "brand": "Exemple",
+      "category": "Bureau & télétravail",
+      "image": "",
+      "badge": "",
+      "featured": false,
+      "score": 7.8,
+      "summary": "Des touches discrètes pour travailler tard sans réveiller la maison.",
+      "description": "Produit d'exemple. Idéal pour transformer un ordinateur portable en vrai poste de travail avec un écran externe.",
+      "specs": ["Récepteur USB 2,4 GHz", "Disposition AZERTY", "Piles fournies", "Autonomie 24 mois"],
+      "pros": ["Très silencieux", "Prise en main immédiate"],
+      "cons": ["Pas rétroéclairé"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.fr", "region": "Europe", "url": "https://www.amazon.fr/" }
+      ],
+      "updatedAt": "2026-11-07"
+    },
+    {
+      "id": "manette-sans-fil-pc-mobile",
+      "demo": true,
+      "name": "Manette sans fil pour PC, téléphone et TV",
+      "brand": "Exemple",
+      "category": "Gaming",
+      "image": "",
+      "badge": "",
+      "featured": false,
+      "score": 7.5,
+      "summary": "Une seule manette pour jouer sur l'ordinateur, le téléphone ou la box TV.",
+      "description": "Produit d'exemple. Vérifiez toujours la compatibilité avec vos appareils dans la fiche de la boutique avant d'acheter.",
+      "specs": ["Bluetooth + USB-C", "Vibrations", "Support téléphone inclus", "Batterie 600 mAh"],
+      "pros": ["Compatible avec beaucoup d'appareils"],
+      "cons": ["Gâchettes un peu courtes"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.com", "region": "International", "url": "https://www.amazon.com/" }
+      ],
+      "updatedAt": "2026-11-06"
+    },
+    {
+      "id": "camera-surveillance-interieure",
+      "demo": true,
+      "name": "Caméra de surveillance intérieure 2K",
+      "brand": "Exemple",
+      "category": "Maison connectée",
+      "image": "",
+      "badge": "",
+      "featured": false,
+      "score": 8.0,
+      "summary": "Gardez un œil sur la maison, les enfants ou l'animal depuis votre téléphone.",
+      "description": "Produit d'exemple. Pensez à vérifier si l'enregistrement se fait sur carte microSD ou seulement par abonnement cloud.",
+      "specs": ["Résolution 2K", "Vision nocturne", "Audio bidirectionnel", "microSD jusqu'à 256 Go"],
+      "pros": ["Image nette, même la nuit", "Pas d'abonnement obligatoire"],
+      "cons": ["Application uniquement en anglais"],
+      "price": "",
+      "links": [
+        { "store": "Amazon.fr", "region": "Europe", "url": "https://www.amazon.fr/" },
+        { "store": "Amazon.com", "region": "International", "url": "https://www.amazon.com/" }
+      ],
+      "updatedAt": "2026-11-05"
+    }
+  ]
+}
